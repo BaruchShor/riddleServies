@@ -1,28 +1,27 @@
 import express from "express";
-import riddleCrud from "../DALRiddle/exportRiddleCrud.js"
+import playerCrud from "../DAL/playerDal.js"
 
 const router = express.Router();
 
-router.get('/',async (req,res) => {
+router.get('/',async (req, res) => {
     try{
-        const data = await riddleCrud.readRiddle();
-        res.status(200).send(data);
+        res.status(201).send(await playerCrud.readPlayers());
     }catch(err){
         res.status(err.status || 500).send(err.message || "Server internal error!");
     }
-});
+})
 
 router.post('/',async (req, res) => {
     try{
-        res.status(201).send(await riddleCrud.createRiddle(req.body));
+        res.status(201).send(await playerCrud.createPlayer(req.body));
     }catch(err){
         res.status(err.status || 500).send(err.message || "Server internal error!");
     }
-});
+})
 
 router.put('/',async (req, res) => {
     try{
-        res.status(201).send(await riddleCrud.updateRiddle(req.body));
+        res.status(201).send(await playerCrud.updatePlayer(req.body));
     }catch(err){
         res.status(err.status || 500).send(err.message || "Server internal error!");
     }
@@ -30,10 +29,10 @@ router.put('/',async (req, res) => {
 
 router.delete('/',async (req, res) => {
     try{
-        res.status(201).send(await riddleCrud.deletRiddle(req.body));
+        res.status(201).send(await playerCrud.deletePlayer(req.body));
     }catch(err){
         res.status(err.status || 500).send(err.message || "Server internal error!");
     }
 })
 
-export default router;
+export default router; 
