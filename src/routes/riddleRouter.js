@@ -14,10 +14,8 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
-    console.log(req.body);
-    const result = await riddleCrud.createRiddle(req.body);
-    console.log(result)
-    res.status(201).send(result);
+    const action = await riddleCrud.createRiddle(req.body);
+    res.status(201).send(action);
   } catch (err) {
     res.status(err.status || 500).send(err.message || "Server internal error!");
   }
@@ -25,7 +23,8 @@ router.post("/", async (req, res) => {
 
 router.put("/", async (req, res) => {
   try {
-    res.status(201).send(await riddleCrud.updateRiddle(req.body));
+    const action = await riddleCrud.updateRiddle(req.body);
+    res.status(201).send(action);
   } catch (err) {
     res.status(err.status || 500).send(err.message || "Server internal error!");
   }
@@ -33,7 +32,8 @@ router.put("/", async (req, res) => {
 
 router.delete("/", async (req, res) => {
   try {
-    res.status(201).send(await riddleCrud.deletRiddle(req.body));
+    const action = await riddleCrud.deletRiddle(req.body);
+    res.status(201).send(action);
   } catch (err) {
     res.status(err.status || 500).send(err.message || "Server internal error!");
   }
