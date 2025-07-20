@@ -1,5 +1,6 @@
 import express from "express";
-import riddleCrud from "../DAL/riddleDal.js";
+//import riddleCrud from "../DAL/riddleDal.js";
+import riddleCrud from "../DAL/mongoRiddleDal";
 
 const router = express.Router();
 
@@ -23,7 +24,7 @@ router.post("/", async (req, res) => {
 
 router.put("/", async (req, res) => {
   try {
-    const action = await riddleCrud.updateRiddle(req.body);
+    const action = await riddleCrud.updateRiddle(req.body.filter, req.body.update);
     res.status(201).send(action);
   } catch (err) {
     res.status(err.status || 500).send(err.message || "Server internal error!");
@@ -32,7 +33,7 @@ router.put("/", async (req, res) => {
 
 router.delete("/", async (req, res) => {
   try {
-    const action = await riddleCrud.deletRiddle(req.body);
+    const action = await riddleCrud.deleteRiddle(req.body);
     res.status(201).send(action);
   } catch (err) {
     res.status(err.status || 500).send(err.message || "Server internal error!");
