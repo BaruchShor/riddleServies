@@ -20,7 +20,7 @@ export async function updateRiddle(upObj){
     }
 };
 
-export async function deletRiddle(id){
+export async function deleteRiddle(id){
     const data = await readRiddle();
     if(data != []){
         const indexToDelete = data.findIndex(obj => obj.id === id);
@@ -29,4 +29,4 @@ export async function deletRiddle(id){
     }
 };
 
-export default {readRiddle, createRiddle, updateRiddle, deletRiddle};
+export default {readRiddle, createRiddle, updateRiddle, deleteRiddle};

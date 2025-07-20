@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "express": "^5.1.0",
+    "mongodb": "^6.17.0",
     "readline-sync": "^1.4.10"
   },
   "name": "riddleservies",
@@ -9,7 +10,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node --watch server.js" 
+    "start": "node --env-file=.env --watch server.js"
   },
   "repository": {
     "type": "git",
