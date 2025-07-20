@@ -11,45 +11,43 @@ async function readRiddle() {
         return await collection.find().toArray();
         // return 'Seccess'
     }catch(error){
-        return "Seccess";
+        return {Success: false, message : error.message};
     }
 };
 
 export async function createRiddle(Obj) {
     try{
         await collection.insertOne(Obj);
-        return 'Seccess'
+        return {Success: true, message : "Riddle is created successfully."};
     }catch(error){
-        return error.message;
+        return {Success: false, message : error.message};
     }
 };
 
 export async function updateRiddle(filterObj, updateObj) {
     try{
         await collection.findOneAndUpdate(filterObj, {$set : updateObj});
-        return 'Seccess'
+        return {Success: true, message : "Riddle is updated successfully."}
     }catch(error){
-        console.log(error)
-        return error.message;
+        return {Success: false, message : error.message};
     }
 };
 
 export async function replaseRiddle(filterObj, updateObj) {
     try{
         await collection.findOneAndReplace(filterObj, updateObj);
-        return 'Seccess'
+        return {Success: true, message : "Riddle is replased successfully."}
     }catch(error){
-        console.log(error)
-        return error.message;
+        return {Success: false, message : error.message};
     }
 };
 
 export async function deleteRiddle(Obj) {
     try{
         await collection.deleteOne(Obj);
-        return 'Seccess'
+        return {Success: true, message : "Riddle is deleted successfully."}
     }catch(error){
-        return error.message;
+        return {Success: false, message : error.message};
     }
 };
 
