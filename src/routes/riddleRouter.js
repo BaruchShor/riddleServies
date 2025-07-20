@@ -1,6 +1,6 @@
 import express from "express";
 //import riddleCrud from "../DAL/riddleDal.js";
-import riddleCrud from "../DAL/mongoRiddleDal";
+import riddleCrud from "../DAL/mongoRiddleDal.js";
 
 const router = express.Router();
 
