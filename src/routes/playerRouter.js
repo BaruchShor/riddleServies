@@ -7,20 +7,33 @@ const router = express.Router();
 router.get('/',async (req, res) => {
     try{
         const data = await playerCrud.readPlayers();
-        res.status(201).send(data);
+        res.status(200).send(data);
     }catch(err){
         res.status(err.status || 500).send(err.message || "Server internal error!");
     }
-})
+});
+
+router.get('/players/name/:name',async (req, res) => {
+    try{
+        const { name } = req.params;
+        const data = await playerCrud.readByName(name);
+        if (!data) {
+            return res.status(404).json({ error: "Player not found" });
+        }
+        res.status(200).send(data);
+    }catch(err){
+        res.status(err.status || 500).json({error : err.message} || {error : "Server internal error!"});
+    }
+});
 
 router.post('/',async (req, res) => {
     try{
         const action = await playerCrud.createPlayer(req.body)
         res.status(201).send(action);
     }catch(err){
-        res.status(err.status || 500).send(err.message || "Server internal error!");
+        res.status(err.status || 500).json({error : err.message} || {error : "Server internal error!"});
     }
-})
+});
 
 router.put('/',async (req, res) => {
     try{
@@ -29,7 +42,7 @@ router.put('/',async (req, res) => {
     }catch(err){
         res.status(err.status || 500).send(err.message || "Server internal error!");
     }
-})
+});
 
 router.delete('/',async (req, res) => {
     try{
@@ -38,6 +51,6 @@ router.delete('/',async (req, res) => {
     }catch(err){
         res.status(err.status || 500).send(err.message || "Server internal error!");
     }
-})
+});
 
 export default router; 
