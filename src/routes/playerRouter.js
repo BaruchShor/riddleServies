@@ -9,7 +9,7 @@ router.get('/',async (req, res) => {
         const data = await playerCrud.readPlayers();
         res.status(200).send(data);
     }catch(err){
-        res.status(err.status || 500).send(err.message || "Server internal error!");
+        res.status(err.status || 500).json({error : err.message} || {error : "Server internal error!"});
     }
 });
 
@@ -37,10 +37,10 @@ router.post('/',async (req, res) => {
 
 router.put('/',async (req, res) => {
     try{
-        const action = await playerCrud.updatePlayer(req.body.obj, id)
+        const action = await playerCrud.updatePlayer(req.body.filter, req.body.updated)
         res.status(201).send(action);
     }catch(err){
-        res.status(err.status || 500).send(err.message || "Server internal error!");
+        res.status(err.status || 500).json({error : err.message} || {error : "Server internal error!"});
     }
 });
 
@@ -49,7 +49,7 @@ router.delete('/',async (req, res) => {
         const action = await playerCrud.deletePlayer(req.body)
         res.status(201).send(action);
     }catch(err){
-        res.status(err.status || 500).send(err.message || "Server internal error!");
+        res.status(err.status || 500).json({error : err.message} || {error : "Server internal error!"});
     }
 });
 
