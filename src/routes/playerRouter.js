@@ -13,7 +13,7 @@ router.get('/',async (req, res) => {
     }
 });
 
-router.get('/players/name/:name',async (req, res) => {
+router.get('/name/:name',async (req, res) => {
     try{
         const { name } = req.params;
         const data = await playerCrud.readByName(name);
