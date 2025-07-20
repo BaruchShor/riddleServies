@@ -6,7 +6,7 @@ async function readPlayers() {
     .select('*');
     if (error) throw new Error(error.message);
     return data;
-}
+};
 
 async function createPlayer(Obj){
     const {data, error} = await supabase.from('players')
@@ -14,7 +14,7 @@ async function createPlayer(Obj){
     .select();
     if(error) throw new Error(error.message);
     return data;
-}
+};
 
 async function readById(id){
     const {data, error} = await supabase
@@ -23,7 +23,16 @@ async function readById(id){
     .eq('id', id);
     if (error) throw new Error(error.message);
     return data;
-}
+};
+
+async function readByName(name){
+    const {data, error} = await supabase
+    .from('players')
+    .select()
+    .eq('name', name);
+    if (error) throw new Error(error.message);
+    return data;
+};
 
 async function updatePlayer(Obj, id) {
     const {data, error} = await supabase
@@ -33,7 +42,7 @@ async function updatePlayer(Obj, id) {
     .select();
     if(error) throw new Error(error.message);
     return data;
-}
+};
 
 async function deletePlayer(id){
     const {data, error} = await supabase
@@ -43,6 +52,6 @@ async function deletePlayer(id){
     .select('id');
     if(error) throw new Error(error.message);
     return data;
-}
+};
 
-export default {readPlayers, createPlayer, updatePlayer, deletePlayer}
+export default {readPlayers, readByName, createPlayer, updatePlayer, deletePlayer}
