@@ -7,7 +7,7 @@ const router = express.Router();
 router.get('/',async (req, res) => {
     try{
         const data = await playerCrud.readPlayers();
-        res.status(201).send(data);
+        res.status(200).send(data);
     }catch(err){
         res.status(err.status || 500).send(err.message || "Server internal error!");
     }
@@ -17,9 +17,12 @@ router.get('/players/name/:name',async (req, res) => {
     try{
         const { name } = req.params;
         const data = await playerCrud.readByName(name);
-        res.status(201).send(data);
+        if (!data) {
+            return res.status(404).json({ error: "Player not found" });
+        }
+        res.status(200).send(data);
     }catch(err){
-        res.status(err.status || 500).send(err.message || "Server internal error!");
+        res.status(err.status || 500).json({error : err.message} || {error : "Server internal error!"});
     }
 });
 

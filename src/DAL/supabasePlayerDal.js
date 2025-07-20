@@ -8,14 +8,6 @@ async function readPlayers() {
     return data;
 };
 
-async function createPlayer(Obj){
-    const {data, error} = await supabase.from('players')
-    .insert(Obj)
-    .select();
-    if(error) throw new Error(error.message);
-    return data;
-};
-
 async function readById(id){
     const {data, error} = await supabase
     .from('players')
@@ -31,6 +23,14 @@ async function readByName(name){
     .select()
     .eq('name', name);
     if (error) throw new Error(error.message);
+    return data;
+};
+
+async function createPlayer(Obj){
+    const {data, error} = await supabase.from('players')
+    .insert(Obj)
+    .select();
+    if(error) throw new Error(error.message);
     return data;
 };
 
