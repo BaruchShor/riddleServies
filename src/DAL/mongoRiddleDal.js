@@ -1,4 +1,4 @@
-import mongoClient, { mongoConnect } from "./DB/db.js";
+import mongoClient, { mongoConnect } from "./DB/riddleDal.js";
 
 await mongoConnect();
 
