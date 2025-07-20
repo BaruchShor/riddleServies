@@ -1,5 +1,6 @@
 import express from "express";
-import playerCrud from "../DAL/playerDal.js"
+//import playerCrud from "../DAL/playerDal.js";
+import playerCrud from "../DAL/supabasePlayerDal.js";
 
 const router = express.Router();
 
@@ -23,7 +24,7 @@ router.post('/',async (req, res) => {
 
 router.put('/',async (req, res) => {
     try{
-        const action = await playerCrud.updatePlayer(req.body)
+        const action = await playerCrud.updatePlayer(req.body.obj, id)
         res.status(201).send(action);
     }catch(err){
         res.status(err.status || 500).send(err.message || "Server internal error!");
