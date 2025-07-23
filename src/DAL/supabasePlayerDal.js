@@ -27,7 +27,8 @@ async function readByName(name){
 };
 
 async function createPlayer(Obj){
-    const {data, error} = await supabase.from('players')
+    const {data, error} = await supabase
+    .from('players')
     .insert(Obj)
     .select();
     if(error) throw new Error(error.message);
