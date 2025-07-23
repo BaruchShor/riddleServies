@@ -44,10 +44,9 @@ router.put('/',async (req, res) => {
     }
 });
 
-router.delete('/id/:id',async (req, res) => {
+router.delete('/',async (req, res) => {
     try{
-        const { id } = req.params;
-        const action = await playerCrud.deletePlayer(id)
+        const action = await playerCrud.deletePlayer(req.body.id)
         res.status(201).send(action);
     }catch(err){
         res.status(err.status || 500).json({error : err.message} || {error : "Server internal error!"});
