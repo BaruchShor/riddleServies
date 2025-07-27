@@ -26,7 +26,7 @@ async function readByName(name){
     return data;
 };
 
-async function getTopRecord(name){
+async function getTopRecord(){
     const {data, error} = await supabase
     .from('players')
     .select('*')
@@ -65,4 +65,4 @@ async function deletePlayer(id){
     return data;
 };
 
-export default {readPlayers, readByName, createPlayer, updatePlayer, deletePlayer}
+export default {readPlayers, readByName, getTopRecord, createPlayer, updatePlayer, deletePlayer}
