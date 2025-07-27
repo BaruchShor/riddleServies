@@ -48,8 +48,8 @@ async function createPlayer(Obj){
 async function updatePlayer(filterObj, updateObj) {
     const {data, error} = await supabase
     .from('players')
-    .update(updateObj)
-    .eq(filterObj.key, filterObj.value)
+    .update({[updateObj.key] : updateObj.value})
+    .eq('id', filterObj.id)
     .select();
     if(error) throw new Error(error.message);
     return data;
