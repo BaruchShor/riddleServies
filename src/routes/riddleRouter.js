@@ -24,7 +24,10 @@ router.post("/", async (req, res) => {
 
 router.put("/", async (req, res) => {
   try {
-    const action = await riddleCrud.updateRiddle(req.body.filter, req.body.update);
+    const action = await riddleCrud.updateRiddle(
+      req.body.filter,
+      req.body.update
+    );
     res.status(201).send(action);
   } catch (err) {
     res.status(err.status || 500).send(err.message || "Server internal error!");
