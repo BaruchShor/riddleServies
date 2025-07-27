@@ -26,6 +26,16 @@ async function readByName(name){
     return data;
 };
 
+async function getTopRecord(name){
+    const {data, error} = await supabase
+    .from('players')
+    .select('*')
+    .order('record', {ascending : true})
+    .limit(1);
+    if (error) throw new Error(error.message);
+    return data;
+};
+
 async function createPlayer(Obj){
     const {data, error} = await supabase
     .from('players')
