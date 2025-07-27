@@ -51,7 +51,7 @@ router.post('/', async (req, res) => {
 router.put('/',auth(['admin', 'user']), async (req, res) => {
     try{
         const action = await playerCrud.updatePlayer(req.body.filter, req.body.update)
-        res.status(201).send(action);
+        res.status(200).send(action);
     }catch(err){
         res.status(err.status || 500).json({error : err.message} || {error : "Server internal error!"});
     };
@@ -60,7 +60,7 @@ router.put('/',auth(['admin', 'user']), async (req, res) => {
 router.delete('/',auth(['admin']), async (req, res) => {
     try{
         const action = await playerCrud.deletePlayer(req.body.id)
-        res.status(201).send(action);
+        res.status(200).send(action);
     }catch(err){
         res.status(err.status || 500).json({error : err.message} || {error : "Server internal error!"});
     }
