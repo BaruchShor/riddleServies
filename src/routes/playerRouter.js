@@ -26,6 +26,18 @@ router.get('/name/:name',async (req, res) => {
     }
 });
 
+router.get('/top',async (req, res) => {
+    try{
+        const data = await playerCrud.getTopRecord();
+        if (!data) {
+            return res.status(404).json({ error: "Player not found" });
+        }
+        res.status(200).send(data);
+    }catch(err){
+        res.status(err.status || 500).json({error : err.message} || {error : "Server internal error!"});
+    }
+});
+
 router.post('/',async (req, res) => {
     try{
         const action = await playerCrud.createPlayer(req.body)
