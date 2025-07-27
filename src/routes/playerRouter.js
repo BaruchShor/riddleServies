@@ -1,6 +1,7 @@
 import express from "express";
 //import playerCrud from "../DAL/playerDal.js";
 import playerCrud from "../DAL/supabasePlayerDal.js";
+import auth from "../../middleWare/auth.js";
 
 const router = express.Router();
 
@@ -38,7 +39,7 @@ router.get('/top',async (req, res) => {
     }
 });
 
-router.post('/',async (req, res) => {
+router.post('/', async (req, res) => {
     try{
         const action = await playerCrud.createPlayer(req.body)
         res.status(201).send(action);
@@ -47,16 +48,16 @@ router.post('/',async (req, res) => {
     }
 });
 
-router.put('/',async (req, res) => {
+router.put('/',auth(['admin', 'user']), async (req, res) => {
     try{
         const action = await playerCrud.updatePlayer(req.body.filter, req.body.update)
         res.status(201).send(action);
     }catch(err){
         res.status(err.status || 500).json({error : err.message} || {error : "Server internal error!"});
-    }
+    };
 });
 
-router.delete('/',async (req, res) => {
+router.delete('/',auth(['admin']), async (req, res) => {
     try{
         const action = await playerCrud.deletePlayer(req.body.id)
         res.status(201).send(action);
