@@ -28,7 +28,7 @@ router.put("/", async (req, res) => {
       req.body.filter,
       req.body.update
     );
-    res.status(201).send(action);
+    res.status(200).send(action);
   } catch (err) {
     res.status(err.status || 500).send(err.message || "Server internal error!");
   }
@@ -37,7 +37,7 @@ router.put("/", async (req, res) => {
 router.delete("/", async (req, res) => {
   try {
     const action = await riddleCrud.deleteRiddle(req.body);
-    res.status(201).send(action);
+    res.status(200).send(action);
   } catch (err) {
     res.status(err.status || 500).send(err.message || "Server internal error!");
   }
