@@ -1,7 +1,7 @@
 import express from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { createPlayer, readByName } from "../DAL/supabasePlayerDal.js";
+import crudPlayer from "../DAL/supabasePlayerDal.js";
 
 const router = express.Router();
 
@@ -14,7 +14,7 @@ router.post('/signup', async (req, res) => {
             id : id,
             password_hash : hashPassword
         };
-        const data = await createPlayer(user);
+        const data = await crudPlayer.createPlayer(user);
         res.status(200).json(res.data);
     }catch(error){
         res.status(500).send(error.message);
@@ -23,7 +23,7 @@ router.post('/signup', async (req, res) => {
 
 router.post('/login', async (req, res) => {
     try{
-        const [user] = await readByName(req.body.name);
+        const [user] = await crudPlayer.readByName(req.body.name);
         if (!user) res.status(403).json('user not found.');
         const passwordMatch = bcrypt.compare(req.body.password, user.hashPassword);
         if (!passwordMatch) return res.status(403).json('Connect is faild.');
