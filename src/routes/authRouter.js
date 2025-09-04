@@ -48,4 +48,27 @@ router.post("/login", async (req, res) => {
   }
 });
 
+router.get("/validate", (req, res) => {
+  const headerToken = req.headers["authorization"];
+  if (!headerToken)
+    return res.status(401).send({ valid: false, message: "No token provided" });
+
+  const token = headerToken.split(" ")[1];
+  if (!token)
+    return res.status(401).send({ valid: false, message: "Token malformed" });
+  try {
+    const decoded = jwt.verify(token, process.env.SECRET);
+
+    res.status(200).send({
+      valid: true,
+      user: {
+        id: decoded.id,
+        role: decoded.role,
+      },
+    });
+  } catch (err) {
+    res.status(401).send({ valid: false, message: "Token invalid or expired" });
+  }
+});
+
 export default router;
